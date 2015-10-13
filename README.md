@@ -4,6 +4,13 @@ Parqa_tool
 
 this is an attempt on visualising Parks attendance Database for NYC DPR PIP, as part of my CUSP GRA project.
 
+##LINKS
+
+- [mapbox mapGL](https://github.com/mapbox/mapbox-gl-js)
+- [cartodb.js](http://docs.cartodb.com/cartodb-platform/cartodb-js.html)
+- [d3.js](http://d3js.org/)
+
+
 
 ##WISHES (this will be removed lately)
 
