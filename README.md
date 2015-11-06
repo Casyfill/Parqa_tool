@@ -3,18 +3,12 @@ Parqa_tool
 **geoVis for Parqa project**
 
 ![Current State](img/1.png "Current state")
+
 current state snapshot
 
 this is an attempt on visualising Parks attendance Database 
 for NYC DPR PIP. As it merely first try, we don't yet know what
 we gonna do with it.
-
-##LINKS
-
-- [mapbox mapGL](https://github.com/mapbox/mapbox-gl-js)
-- [cartodb.js](http://docs.cartodb.com/cartodb-platform/cartodb-js.html)
-- [d3.js](http://d3js.org/)
-
 
 
 ##WISHES (this will be removed lately)
@@ -42,3 +36,11 @@ we gonna do with it.
 - [ ] basic district info-window
 - [ ] timeseries (?)
 - [ ] tbd/brainstorm
+
+##LINKS
+
+- [mapbox mapGL](https://github.com/mapbox/mapbox-gl-js)
+- [cartodb.js](http://docs.cartodb.com/cartodb-platform/cartodb-js.html)
+- [d3.js](http://d3js.org/)
+
+
