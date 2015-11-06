@@ -2,7 +2,7 @@ Parqa_tool
 ==========
 **geoVis for Parqa project**
 
-![Current State](img/1.jpg)
+![Current State](img/1.png "Current state")
 current state snapshot
 
 this is an attempt on visualising Parks attendance Database 
