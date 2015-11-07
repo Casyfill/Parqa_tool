@@ -2,13 +2,12 @@ Parqa_tool
 ==========
 **geoVis for Parqa project**
 
-![Current State](img/1.png "Current state")
+this is an attempt to visualise Parks attendance Database
+as some sort of analytical tool for NYC DPR PIP.
 
-current state snapshot
+![Current State](img/2.png "Current state")
 
-this is an attempt on visualising Parks attendance Database 
-for NYC DPR PIP. As it merely first try, we don't yet know what
-we gonna do with it.
+*Current state snapshot*
 
 
 ##WISHES (this will be removed lately)
@@ -20,21 +19,24 @@ we gonna do with it.
 - show timeseries on selected district and/or park
 - time-filtering
 - quality-based color ramp
-/// to be rethinked
+/// TBD
 
 
 ##TODO
 
 - [X] basic district visualisation
-- [ ] District id as hover-window
+- [X] District id as hover-window
+- [ ] Park card on hover/select
+	- [x] show card
+	- [ ] add data (population, area, park area, tbd)
 - [ ] draw parks
 - [ ] draw other proprties
 	- [ ] draw playgrounds
 	- [ ] draw ps playgrounds (need to dedupe?)
 	- [ ] draw beaches
 	- [ ] draw pools
-- [ ] basic district info-window
-- [ ] timeseries (?)
+- [ ] filters (years, type, borough)
+- [ ] timeseries
 - [ ] tbd/brainstorm
 
 ##LINKS
@@ -42,5 +44,3 @@ we gonna do with it.
 - [mapbox mapGL](https://github.com/mapbox/mapbox-gl-js)
 - [cartodb.js](http://docs.cartodb.com/cartodb-platform/cartodb-js.html)
 - [d3.js](http://d3js.org/)
-
-
