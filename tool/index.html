@@ -11,6 +11,27 @@
 
 }
 
+h1#title{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  fill: #2e2e2e;
+  font-size: 40px;
+  font-weight: 300;
+  text-anchor: left;
+  position: fixed;
+  top: 0px;
+  left: 15px;
+
+}
+
+.rButton{
+  margin-right: 10px;
+}
+#formDiv {
+  position: fixed;
+  top: 90px;
+  left: 13px;
+}
+
 .district:hover {
     fill: rgb(115, 198, 131);
 }
@@ -26,12 +47,12 @@ text {
   font-size: 30px;
 }
 
-#title {
+/*#title {
   fill: #2e2e2e;
   font-size: 40px;
   font-weight: 300;
   text-anchor: left;
-}
+}*/
 
 #tooltip {
   fill: #2e2e2e;
@@ -80,11 +101,13 @@ var svg = d3.select("body").append("svg")
 var info =  svg.append("g")
      .attr("id", "infoblock")
 
-  info.append("text")
-     .attr("id", "title")
-     .attr("x",10)
-     .attr("y", 40)
-     .text("NYC Park Quality")
+  // info.append("text")
+  //    .attr("id", "title")
+  //    .attr("x",'10px')
+  //    .attr("y", '40px')
+  //    .text("NYC Park Quality")
+
+
 
   d3.json("ms_districts.json", function(error, nyb) {
   	console.log(nyb)
@@ -124,18 +147,17 @@ var info =  svg.append("g")
 
         var card = svg.select("#infoblock")
            .append("g")
+           .attr("transform","translate(13,120)")
            .attr("id",'distrCard');
 
         card.append("rect")
            .attr("id",'cardBack')
-           .attr("x",10)
-           .attr("y",70)
            .attr("width",200)
            .attr("height",100)
 
            card.append("text")
-           .attr("x", 20)
-           .attr("y", 100)
+           .attr("x", 10)
+           .attr("y", 25)
            .attr("id",'dID')
            .text(d.properties.SYSTEM);
       } )
@@ -146,22 +168,42 @@ var info =  svg.append("g")
       });
 
 
+      // ---- RADIO BUTTONS
+      var modes = ["Property", "Scores", "Complains"],
+      j = 0;  // Choose the rectangle as default
 
-      // d3.select(this).enter()
-      // .append("text")
-      // .attr("class", "district-label")
-      // .attr("fill", "orange")};
+      //
+      var form = d3.select("body")
+                   .append("div")
+                   .append("h1")
+                   .attr('id','title')
+                   .text("NYC Park Quality");
 
 
+      // Create the shape selectors
+      var form = d3.select("body")
+                   .append("div")
+                   .attr('id','formDiv')
+                   .append("form");
 
+      var labelEnter = form.selectAll("span")
+                 .data(modes)
+                 .enter()
+                 .append("span")
+                 .attr('class','rButton');
 
-    // svg.selectAll(".district-label")
-    // .data(topojson.feature(nyb, nyb.objects.districts).features)
-    // .enter().append("text")
-    //     .attr("class", "district-label ")
-    //     .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
-    //     .attr("dy", ".15em")
-    //     .text(function(d) { return d.properties.SYSTEM; });
+      labelEnter.append("input")
+                .attr({
+                     type: "radio",
+                     class: "shape",
+                     name: "mode",
+                     value: function(d, i) {return i;}
+                 })
+                .property("checked", function(d, i) {
+                     return (i===j);
+                 });
+
+      labelEnter.append("label").text(function(d) {return d;});
 
 	});
 
