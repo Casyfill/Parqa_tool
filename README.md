@@ -24,20 +24,25 @@ as some sort of analytical tool for NYC DPR PIP.
 
 ##TODO
 
-- [X] basic district visualisation
-- [X] District id as hover-window
+- [x] basic district visualisation
+- [x] District id as hover-window
 - [ ] Park card on hover/select
 	- [x] show card
 	- [ ] add data (population, area, park area, tbd)
+- [x] mode radiobutton
 - [ ] draw parks
 - [ ] draw other proprties
 	- [ ] draw playgrounds
 	- [ ] draw ps playgrounds (need to dedupe?)
 	- [ ] draw beaches
 	- [ ] draw pools
+	- [ ] label design (?)
 - [ ] filters (years, type, borough)
 - [ ] timeseries
 - [ ] tbd/brainstorm
+
+##LastTODO
+- [ ] move district labels to improve visibility
 
 ##LINKS
 
