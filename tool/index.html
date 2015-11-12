@@ -137,14 +137,12 @@ d3.json("ms_districts.json", function(error, nyb) {
         // var xPosition = parseFloat(d3.select(this).attr("x")) ;
         // var yPosition = parseFloat(d3.select(this).attr("y")) + 14;
         coordinates = path.centroid(d);
-        var ms_x = coordinates[0];
-        var ms_y = coordinates[1];
 
         //Create the tooltip label
         svg.append("text")
         .attr("id", "tooltip")
-        .attr("x", ms_x)
-        .attr("y", ms_y)
+        .attr("x", coordinates[0])
+        .attr("y", coordinates[1])
         .attr("text-anchor", "middle")
         .attr("font-family", "sans-serif")
         .attr("font-size", "11px")
@@ -154,12 +152,12 @@ d3.json("ms_districts.json", function(error, nyb) {
 
         var card = svg.select("#infoblock")
            .append("g")
-           .attr("transform","translate(13,120)")
+           .attr("transform","translate(8,120)")
            .attr("id",'distrCard');
 
         card.append("rect")
            .attr("id",'cardBack')
-           .attr("width",200)
+           .attr("width",235)
            .attr("height",70)
 
         card.append("text")

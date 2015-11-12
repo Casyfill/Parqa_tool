@@ -31,7 +31,7 @@ as some sort of analytical tool for NYC DPR PIP.
 	- [ ] add data (population, area, park area, tbd)
 - [x] mode radiobutton
 - [x] draw parks
-- [ ] draw other proprties
+- [ ] draw other properties
 	- [ ] draw playgrounds
 	- [ ] draw ps playgrounds (need to dedupe?)
 	- [ ] draw beaches
@@ -44,6 +44,9 @@ as some sort of analytical tool for NYC DPR PIP.
 
 ##LastTODO
 - [ ] move district labels to improve visibility
+
+##Known Bugs
+- [ ] for now parks are above districts: therefore, it's fruitless to hover over the park
 
 ##LINKS
 
