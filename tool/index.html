@@ -11,6 +11,13 @@
 
 }
 
+#parks {
+	stroke-width: 0px;
+	fill: rgb(122, 201, 123);
+
+}
+
+
 h1#title{
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   fill: #2e2e2e;
@@ -33,7 +40,7 @@ h1#title{
 }
 
 .district:hover {
-    fill: rgb(115, 198, 131);
+    fill: rgb(122, 201, 123);
 }
 
 text {
@@ -109,7 +116,7 @@ var info =  svg.append("g")
 
 
 
-  d3.json("ms_districts.json", function(error, nyb) {
+d3.json("ms_districts.json", function(error, nyb) {
   	console.log(nyb)
 
 	var path = d3.geo.path()
@@ -126,7 +133,7 @@ var info =  svg.append("g")
       .attr("id", function(d) { return "district " + d.id; })
       .attr("d", path)
       .on("mouseover", function(d){
-        console.log(d.properties.SYSTEM)
+        // console.log(d.properties.SYSTEM)
         // var xPosition = parseFloat(d3.select(this).attr("x")) ;
         // var yPosition = parseFloat(d3.select(this).attr("y")) + 14;
         coordinates = path.centroid(d);
@@ -153,13 +160,20 @@ var info =  svg.append("g")
         card.append("rect")
            .attr("id",'cardBack')
            .attr("width",200)
-           .attr("height",100)
+           .attr("height",70)
 
-           card.append("text")
+        card.append("text")
            .attr("x", 10)
            .attr("y", 25)
            .attr("id",'dID')
            .text(d.properties.SYSTEM);
+
+        card.append("text")
+           .attr("x", 10)
+           .attr("y", 55)
+           .attr("id","COUNCILDIS")
+           .text("Council District: " + d.properties.COUNCILDIS)
+
       } )
       .on("mouseout", function() {
         //Remove the tooltip
@@ -205,7 +219,24 @@ var info =  svg.append("g")
 
       labelEnter.append("label").text(function(d) {return d;});
 
+      d3.json("parks3.json", function(error, prks) {
+
+        var path = d3.geo.path()
+      			.projection(projection);
+
+        var ps = svg.append("g")
+                 .attr("id","parks")
+                 .selectAll(".parkP")
+                 .data(topojson.feature(prks, prks.objects.parks_computed).features)
+                 .enter().append("path")
+                 .attr("class","park")
+                 .attr("id", function(d) { return "district " + d.GISPROPNUM; })
+                 .attr("d", path)
+
+      })
 	});
+
+
 
 </script>
 </body>

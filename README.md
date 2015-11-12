@@ -5,7 +5,7 @@ Parqa_tool
 this is an attempt to visualise Parks attendance Database
 as some sort of analytical tool for NYC DPR PIP.
 
-![Current State](img/3.png "Current state")
+![Current State](img/4.png "Current state")
 
 *Current state snapshot*
 
@@ -30,13 +30,14 @@ as some sort of analytical tool for NYC DPR PIP.
 	- [x] show card
 	- [ ] add data (population, area, park area, tbd)
 - [x] mode radiobutton
-- [ ] draw parks
+- [x] draw parks
 - [ ] draw other proprties
 	- [ ] draw playgrounds
 	- [ ] draw ps playgrounds (need to dedupe?)
 	- [ ] draw beaches
 	- [ ] draw pools
 	- [ ] label design (?)
+- [ ] optimize parks (remove small ones/convert to points)
 - [ ] filters (years, type, borough)
 - [ ] timeseries
 - [ ] tbd/brainstorm
