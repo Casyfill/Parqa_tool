@@ -1,0 +1,90 @@
+/*body {
+  fill: rgb(237, 255, 248);
+}*/
+
+
+path.back {
+  stroke: lightgray;
+	stroke-width: 1px;
+	fill: rgb(237, 255, 248);  //rgb(237, 255, 248);
+
+}
+
+
+.district {
+  stroke: lightgray;
+	stroke-width: 1px;
+	fill:rgba(0,0,0,0);
+
+
+}
+
+#parks {
+	stroke-width: 0px;
+	fill: rgb(122, 201, 123);
+
+
+}
+
+
+h1#title{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  fill: #2e2e2e;
+  font-size: 40px;
+  font-weight: 300;
+  text-anchor: left;
+  position: fixed;
+  top: 0px;
+  left: 15px;
+
+}
+
+.rButton{
+  margin-right: 10px;
+}
+#formDiv {
+  position: fixed;
+  top: 90px;
+  left: 13px;
+}
+
+.district:hover {
+    fill: rgb(122, 201, 123);
+}
+
+text {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  pointer-events: none;
+}
+
+.header{
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 30px;
+}
+
+/*#title {
+  fill: #2e2e2e;
+  font-size: 40px;
+  font-weight: 300;
+  text-anchor: left;
+}*/
+
+#tooltip {
+  fill: #2e2e2e;
+  font-size: 12px;
+  font-weight: 300;
+  text-anchor: middle;
+}
+
+/* CARD  CSS*/
+#cardBack{
+  fill: rgba(196, 208, 199, .3)
+}
+
+#dID{
+  fill: #2e2e2e;
+  font-size: 20px;
+  font-weight: 300;
+  text-anchor: left;
+}
