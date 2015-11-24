@@ -9,6 +9,9 @@ as some sort of analytical tool for NYC DPR PIP.
 
 *Current state snapshot*
 
+## start server (cant remember)
+
+- `http-server -p 8008 &`
 
 ##WISHES (this will be removed lately)
 
