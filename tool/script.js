@@ -60,7 +60,7 @@ d3.json("ms_districts3.json", function(error, nyb) {
        .selectAll(".state")
        .data(topojson.feature(nyb, nyb.objects.districts).features)
        .enter().append("path")
-       .attr("class", "district1")
+       .attr("class", "district transparent")
        .attr("id", function(d) { return "district " + d.id; })
        .attr("d", path)
        .on("mouseover", function(d){
@@ -155,7 +155,7 @@ d3.json("ms_districts3.json", function(error, nyb) {
                       return (i===j);
                   });
 
-       labelEnter.append("label").text(function(d) {return d;});
+       labelEnter.append('label').text(function(d) {return d;});
 
       //  ViZ MODES
        d3.selectAll("input").on("change", change);
@@ -163,20 +163,30 @@ d3.json("ms_districts3.json", function(error, nyb) {
        function change() {
         //  change viz mode
             mode = this.value;
-            console.log(modes[mode])
+            console.log(mode)
             choropleth(mode)
 
           }
 
       function choropleth(mode) {
-        var quantize = [function(){}, d3.scale.quantize()
-                         .domain([.47, 1.00])
-                         .range(d3.range(7).map(function(i) { return "q1_" + i + "-7"; })),
-                        quantize1 = d3.scale.quantize()
-                          .domain([8, 816])
-                          .range(d3.range(7).map(function(i) { return "q2_" + i + "-7"; }))][mode];
+        // var rate = d3.map();
 
+        var quantize = [function(){return "district transparent" },
+                        d3.scale.quantize()
+                         .domain([.45, 1.00])
+                         .range(d3.range(7).map(function (i) { return "district ht q1_" + i + "-7"; })),
+                        d3.scale.quantize()
+                            .domain([5, 816])
+                          .range(d3.range(7).map(function (i) { return "district ht q2_" + i + "-7"; }))
+                        ][mode];
 
+        if (mode==2) {
+          d3.selectAll('.district').attr('class', function (d) { return quantize(d.properties.calls2015) })
+        } else if (mode==1) {
+          d3.selectAll('.district').attr('class', function (d) { return quantize(d.properties.PIPscore) })
+        } else {
+          d3.selectAll('.district').attr('class', function (d) { return quantize() })
+        }
 
 
       }

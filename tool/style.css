@@ -11,16 +11,18 @@ path.back {
 }
 
 
-.district1 {
+.district {
   stroke: lightgray;
 	stroke-width: 1px;
-	fill:rgba(0,0,0,0);
 }
 
-.district2 {
-  stroke: lightgray;
-	stroke-width: 1px;
-	fill:rgba(0,0,0,50);
+.transparent {
+
+  fill-opacity:0.0;
+}
+
+.ht {
+  fill-opacity:0.5;
 }
 
 
@@ -53,6 +55,7 @@ h1#title{
 
 .district:hover {
     fill: rgb(122, 201, 123);
+    fill-opacity:1;
 }
 
 text {

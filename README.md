@@ -5,7 +5,7 @@ Parqa_tool
 this is an attempt to visualise Parks attendance Database
 as some sort of analytical tool for NYC DPR PIP.
 
-![Current State](img/4.png "Current state")
+![Current State](img/5.png "Current state")
 
 *Current state snapshot*
 
@@ -40,7 +40,10 @@ as some sort of analytical tool for NYC DPR PIP.
 - [x] switch to modes
 - [x] add choropleth data to districts (calls and soph. score for 2015)
 - [x] added calls and score to district card
-- [ ] choropleth
+- [x] choropleth
+- [ ] cure choropleth (grey things)
+- [ ] choropleth legend
+- [ ] work on color palletes
 - [ ] timelines
 - [ ] selection
 - [ ] optimize parks (remove small ones/convert to points)
