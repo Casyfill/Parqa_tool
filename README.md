@@ -37,7 +37,8 @@ as some sort of analytical tool for NYC DPR PIP.
 - [x] css to separate file
 - [x] js to separate file
 - [x] districts over parks
-- [ ] switch to modes
+- [x] switch to modes
+- [x] add choropleth data to districts (calls and soph. score for 2015)
 - [ ] choropleth
 - [ ] timelines
 - [ ] selection
