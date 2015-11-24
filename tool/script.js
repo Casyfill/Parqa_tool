@@ -19,14 +19,14 @@ var info =  svg.append("g")
 
 
 
-d3.json("ms_districts.json", function(error, nyb) {
-  console.log(nyb)
+d3.json("ms_districts3.json", function(error, nyb) {
+  console.log('districts uploaded')
 
  	var path = d3.geo.path()
  			.projection(projection);
 
  	var g = svg.append("g");
-
+  console.log('parks uploaded')
   d3.json("parks3.json", function(error, prks) {
 
         var path = d3.geo.path()
@@ -41,7 +41,7 @@ d3.json("ms_districts.json", function(error, nyb) {
                  .attr("id", function(d) { return "district " + d.GISPROPNUM; })
                  .attr("d", path)
 
-       console.log('hahaha')
+
 
       })
 
@@ -96,9 +96,21 @@ d3.json("ms_districts.json", function(error, nyb) {
 
          card.append("text")
             .attr("x", 10)
-            .attr("y", 55)
+            .attr("y", 42)
             .attr("id","COUNCILDIS")
             .text("Council District: " + d.properties.COUNCILDIS)
+
+         card.append("text")
+            .attr("x", 10)
+            .attr("y", 54)
+            .attr("id","calls")
+            .text("311 complains: " + d.properties.calls2015)
+
+        card.append("text")
+            .attr("x", 10)
+            .attr("y", 66)
+            .attr("id","pip")
+            .text("PIP score: " + d.properties.PIPscore.toFixed(2))
 
        } )
        .on("mouseout", function() {
@@ -151,7 +163,7 @@ d3.json("ms_districts.json", function(error, nyb) {
        function change() {
         //  change viz mode
             mode = this.value;
-            // console.log(modes[mode])
+            console.log(modes[mode])
             choropleth(mode)
 
           }
@@ -160,7 +172,7 @@ d3.json("ms_districts.json", function(error, nyb) {
         // show/hide choropleth of districts
         // and legend
 
-        // 
+        //
 
       }
 

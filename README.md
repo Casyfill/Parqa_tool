@@ -39,10 +39,12 @@ as some sort of analytical tool for NYC DPR PIP.
 - [x] districts over parks
 - [x] switch to modes
 - [x] add choropleth data to districts (calls and soph. score for 2015)
+- [x] added calls and score to district card
 - [ ] choropleth
 - [ ] timelines
 - [ ] selection
-
+- [ ] optimize parks (remove small ones/convert to points)
+- [ ] design park card
 
 - [ ] draw other properties
 	- [ ] draw playgrounds
@@ -50,10 +52,11 @@ as some sort of analytical tool for NYC DPR PIP.
 	- [ ] draw beaches
 	- [ ] draw pools
 	- [ ] label design (?)
-- [ ] optimize parks (remove small ones/convert to points)
+
 - [ ] filters (years, type, borough)
 
 ##LastTODO
+
 - [ ] move district labels to improve visibility
 - [ ] create additional selector hotspots
 
