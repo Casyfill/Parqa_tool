@@ -38,7 +38,7 @@ d3.json("ms_districts3.json", function(error, nyb) {
                  .data(topojson.feature(prks, prks.objects.parks_computed).features)
                  .enter().append("path")
                  .attr("class","park")
-                 .attr("id", function(d) { return "district " + d.GISPROPNUM; })
+                 .attr("id", function(d) { return "park_ " + d.GISPROPNUM; })
                  .attr("d", path)
 
 
@@ -60,7 +60,7 @@ d3.json("ms_districts3.json", function(error, nyb) {
        .selectAll(".state")
        .data(topojson.feature(nyb, nyb.objects.districts).features)
        .enter().append("path")
-       .attr("class", "district")
+       .attr("class", "district1")
        .attr("id", function(d) { return "district " + d.id; })
        .attr("d", path)
        .on("mouseover", function(d){
@@ -169,10 +169,15 @@ d3.json("ms_districts3.json", function(error, nyb) {
           }
 
       function choropleth(mode) {
-        // show/hide choropleth of districts
-        // and legend
+        var quantize = [function(){}, d3.scale.quantize()
+                         .domain([.47, 1.00])
+                         .range(d3.range(7).map(function(i) { return "q1_" + i + "-7"; })),
+                        quantize1 = d3.scale.quantize()
+                          .domain([8, 816])
+                          .range(d3.range(7).map(function(i) { return "q2_" + i + "-7"; }))][mode];
 
-        //
+
+
 
       }
 

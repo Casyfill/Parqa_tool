@@ -11,19 +11,22 @@ path.back {
 }
 
 
-.district {
+.district1 {
   stroke: lightgray;
 	stroke-width: 1px;
 	fill:rgba(0,0,0,0);
-
-
 }
+
+.district2 {
+  stroke: lightgray;
+	stroke-width: 1px;
+	fill:rgba(0,0,0,50);
+}
+
 
 #parks {
 	stroke-width: 0px;
 	fill: rgb(122, 201, 123);
-
-
 }
 
 
@@ -88,3 +91,23 @@ text {
   font-weight: 300;
   text-anchor: left;
 }
+
+// Calls gradient
+
+.q1_0-7 { fill:#B7F8C7; }
+.q1_1-7 { fill:#91DFAE; }
+.q1_2-7 { fill:#70C699; }
+.q1_3-7 { fill:#52AD89; }
+.q1_4-7 { fill:#39937A; }
+.q1_5-7 { fill:#257A6C; }
+.q1_6-7 { fill:#14615E; }
+
+// PIP Score
+
+.q2_0-7 { fill:#DAF495; }
+.q2_1-7 { fill:#CAEA8C; }
+.q2_2-7 { fill:#BAE083; }
+.q2_3-7 { fill:#AAD67B; }
+.q2_4-7 { fill:#9BCC73; }
+.q2_5-7 { fill:#8DC26B; }
+.q2_6-7 { fill:#7FB964; }
