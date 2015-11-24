@@ -145,5 +145,24 @@ d3.json("ms_districts.json", function(error, nyb) {
 
        labelEnter.append("label").text(function(d) {return d;});
 
+      //  ViZ MODES
+       d3.selectAll("input").on("change", change);
+
+       function change() {
+        //  change viz mode
+            mode = this.value;
+            // console.log(modes[mode])
+            choropleth(mode)
+
+          }
+
+      function choropleth(mode) {
+        // show/hide choropleth of districts
+        // and legend
+
+        // 
+
+      }
+
 
  	})
