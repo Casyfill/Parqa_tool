@@ -37,7 +37,7 @@ d3.json("ms_districts3.json", function(error, nyb) {
                  .selectAll(".parkP")
                  .data(topojson.feature(prks, prks.objects.parks_computed).features)
                  .enter().append("path")
-                 .attr("class","park")
+                 .attr("class","park park1")
                  .attr("id", function(d) { return "park_ " + d.GISPROPNUM; })
                  .attr("d", path)
 
@@ -173,11 +173,11 @@ d3.json("ms_districts3.json", function(error, nyb) {
 
         var quantize = [function(){return "district transparent" },
                         d3.scale.quantize()
-                         .domain([.45, 1.00])
-                         .range(d3.range(7).map(function (i) { return "district ht q1_" + i + "-7"; })),
+                         .domain([.40, 1.00])
+                         .range(d3.range(7).map(function (i) { return "district ht q1_" + (i+1) + "-7"; })),
                         d3.scale.quantize()
                             .domain([5, 816])
-                          .range(d3.range(7).map(function (i) { return "district ht q2_" + i + "-7"; }))
+                          .range(d3.range(7).map(function (i) { return "district ht q2_" + (i+1) + "-7"; }))
                         ][mode];
 
         if (mode==2) {
@@ -188,6 +188,7 @@ d3.json("ms_districts3.json", function(error, nyb) {
           d3.selectAll('.district').attr('class', function (d) { return quantize() })
         }
 
+        d3.selectAll('.park').attr('class',function (){ return 'park '+ ['park1', 'park2', 'park2'][mode]})
 
       }
 
