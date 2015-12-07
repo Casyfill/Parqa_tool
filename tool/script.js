@@ -198,8 +198,9 @@ d3.json("ms_districts3.json", function(error, nyb) {
    .data(ext_color_domain)
    .enter().append("g")
    .attr("class", "legend");
+   .attr("transform","translate(600,120)")
 
-   var ls_w = 20, ls_h = 20;
+   var ls_w = 30, ls_h = 20;
 
    legend.append("rect")
    .attr("x", 20)
