@@ -64,8 +64,12 @@ d3.json("ms_districts3.json", function(error, nyb) {
        .attr("id", function(d) { return "district " + d.id; })
        .attr("d", path)
        .on("mouseover", function(d){
-         coordinates = path.centroid(d);
 
+         d3.select(this).transition()
+                        .style("opacity", 1)
+                        .style("color", "rgb(122, 201, 123)");;
+
+         coordinates = path.centroid(d);
          //Create the tooltip label
          svg.append("text")
          .attr("id", "tooltip")

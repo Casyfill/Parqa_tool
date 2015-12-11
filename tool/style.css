@@ -54,10 +54,10 @@ h1#title{
   left: 13px;
 }
 
-.district:hover {
+/*.district:hover {
     fill: rgb(122, 201, 123);
     fill-opacity:1;
-}
+}*/
 
 text {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
