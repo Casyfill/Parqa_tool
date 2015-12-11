@@ -7,7 +7,9 @@ var projection = d3.geo.mercator()
    					.translate([100 + (width) / 2, (height)/2 ]);
 
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("body")
+    .style('color','black')
+    .append("svg")
      .attr("width", width)
      .attr("height", height);
 
@@ -34,15 +36,12 @@ d3.json("ms_districts3.json", function(error, nyb) {
            .projection(projection);
 
         var ps = g.append("g")
-                 .attr("id","parks")
                  .selectAll(".parkP")
                  .data(topojson.feature(prks, prks.objects.parks_computed).features)
                  .enter().append("path")
-                 .attr("class","park park1")
+                 .attr("class","park")
                  .attr("id", function(d) { return "park_ " + d.GISPROPNUM; })
-                 .attr("d", path)
-
-
+                 .attr("d", path);
 
       })
 
@@ -164,8 +163,8 @@ d3.json("ms_districts3.json", function(error, nyb) {
        function change() {
         //  change viz mode
             mode = this.value;
-            console.log(mode)
-            choropleth(mode)
+            console.log(mode);
+            choropleth(mode);
 
           }
 
@@ -184,18 +183,19 @@ d3.json("ms_districts3.json", function(error, nyb) {
         if (mode==2) {
           d3.selectAll('.district').transition()
           .style('fill-opacity', '0.6')
-          .style('color', function (d) { return quantize(d.properties.calls2015) })
+          .style('fill', function (d) { return quantize(d.properties.calls2015) })
         } else if (mode==1) {
           d3.selectAll('.district').transition()
           .style('fill-opacity', '0.6')
-          .style('color', function (d) { return quantize(d.properties.PIPscore) })
+          .style('fill', function (d) { return quantize(d.properties.PIPscore) })
         } else {
           d3.selectAll('.district').transition()
             .style('fill-opacity', '0.0')
-            .style('color', function (d) { return quantize() })
+            .style('fill', function (d) { return quantize() })
         }
 
-        d3.selectAll('.park').attr('class',function (){ return 'park '+ ['park1', 'park2', 'park2'][mode]})
+        d3.selectAll('.park').transition()
+            .style('fill',function (){ return ["rgb(155, 226, 155)", "rgb(210, 223, 210)", "rgb(210, 223, 210)"][mode]})
 
       }
 
