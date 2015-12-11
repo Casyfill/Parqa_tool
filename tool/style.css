@@ -13,15 +13,12 @@ path.back {
 
 .district {
   stroke: lightgray;
+  fill-opacity:0.0;
 	stroke-width: 1px;
 }
 
-.transparent {
-
-  fill-opacity:0.0;
-}
-
 .ht {
+  stroke: white;
   fill-opacity:0.5;
 }
 

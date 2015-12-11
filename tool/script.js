@@ -13,11 +13,12 @@ var svg = d3.select("body").append("svg")
 
    // title
 var info =  svg.append("g")
-      .attr("id", "infoblock")
+      .attr("id", "infoblock");
 
 
+var ScoresGradient = ["#B7F8C7","#91DFAE","#70C699","#52AD89","#39937A","#257A6C","#14615E"];
 
-
+var complainGradient = ["#DAF495","#CAEA8C","#BAE083","#AAD67B","#9BCC73","#8DC26B","#7FB964"];
 
 d3.json("ms_districts3.json", function(error, nyb) {
   console.log('districts uploaded')
@@ -60,7 +61,7 @@ d3.json("ms_districts3.json", function(error, nyb) {
        .selectAll(".state")
        .data(topojson.feature(nyb, nyb.objects.districts).features)
        .enter().append("path")
-       .attr("class", "district transparent")
+       .attr("class", "district")
        .attr("id", function(d) { return "district " + d.id; })
        .attr("d", path)
        .on("mouseover", function(d){
@@ -171,49 +172,74 @@ d3.json("ms_districts3.json", function(error, nyb) {
       function choropleth(mode) {
         // var rate = d3.map();
 
-        var quantize = [function(){return "district transparent" },
+        var quantize = [function(){return "red" },
                         d3.scale.quantize()
                          .domain([.40, 1.00])
-                         .range(d3.range(7).map(function (i) { return "district ht q1_" + (i+1) + "-7"; })),
+                         .range(d3.range(7).map(function (i) { return ScoresGradient[i]; })),
                         d3.scale.quantize()
                             .domain([5, 816])
-                          .range(d3.range(7).map(function (i) { return "district ht q2_" + (i+1) + "-7"; }))
+                          .range(d3.range(7).map(function (i) { return complainGradient[i]; }))
                         ][mode];
 
         if (mode==2) {
-          d3.selectAll('.district').attr('class', function (d) { return quantize(d.properties.calls2015) })
+          d3.selectAll('.district').transition()
+          .style('fill-opacity', '0.6')
+          .style('color', function (d) { return quantize(d.properties.calls2015) })
         } else if (mode==1) {
-          d3.selectAll('.district').attr('class', function (d) { return quantize(d.properties.PIPscore) })
+          d3.selectAll('.district').transition()
+          .style('fill-opacity', '0.6')
+          .style('color', function (d) { return quantize(d.properties.PIPscore) })
         } else {
-          d3.selectAll('.district').attr('class', function (d) { return quantize() })
+          d3.selectAll('.district').transition()
+            .style('fill-opacity', '0.0')
+            .style('color', function (d) { return quantize() })
         }
 
         d3.selectAll('.park').attr('class',function (){ return 'park '+ ['park1', 'park2', 'park2'][mode]})
 
       }
 
+
+      function getDataRange() {
+    // function loops through all the data values from the current data attribute
+    // and returns the min and max values
+
+      var min = Infinity, max = -Infinity;
+      d3.selectAll('.district')
+        .each(function(d,i) {
+          var currentValue = d.properties[attributeArray[currentAttribute]];
+          if(currentValue <= min && currentValue != -99 && currentValue != 'undefined') {
+            min = currentValue;
+          }
+          if(currentValue >= max && currentValue != -99 && currentValue != 'undefined') {
+            max = currentValue;
+          }
+      });
+      return [min,max];  //boomsauce
+      }
+
       //Adding legend for our Choropleth
 
-   var legend = svg.selectAll("g.legend")
-   .data(ext_color_domain)
-   .enter().append("g")
-   .attr("class", "legend");
-   .attr("transform","translate(600,120)")
+  //  var legend = svg.selectAll("g.legend")
+  //  .data(ext_color_domain)
+  //  .enter().append("g")
+  //  .attr("class", "legend")
+  //  .attr("transform","translate(600,120)");
+   //
+  //  var ls_w = 30, ls_h = 20;
+   //
+  //  legend.append("rect")
+  //  .attr("x", 20)
+  //  .attr("y", function(d, i){ return height - (i*ls_h) - 2*ls_h;})
+  //  .attr("width", ls_w)
+  //  .attr("height", ls_h)
+  //  .style("fill", function(d, i) { return color(d); })
+  //  .style("opacity", 0.8);
 
-   var ls_w = 30, ls_h = 20;
-
-   legend.append("rect")
-   .attr("x", 20)
-   .attr("y", function(d, i){ return height - (i*ls_h) - 2*ls_h;})
-   .attr("width", ls_w)
-   .attr("height", ls_h)
-   .style("fill", function(d, i) { return color(d); })
-   .style("opacity", 0.8);
-
-   legend.append("text")
-   .attr("x", 50)
-   .attr("y", function(d, i){ return height - (i*ls_h) - ls_h - 4;})
-   .text(function(d, i){ return legend_labels[i]; });
+  //  legend.append("text")
+  //  .attr("x", 50)
+  //  .attr("y", function(d, i){ return height - (i*ls_h) - ls_h - 4;})
+  //  .text(function(d, i){ return legend_labels[i]; });
 
 
  	})
