@@ -70,6 +70,7 @@ text {
   font-size: 30px;
 }
 
+
 /*#title {
   fill: #2e2e2e;
   font-size: 40px;
@@ -95,3 +96,9 @@ text {
   font-weight: 300;
   text-anchor: left;
 }
+
+.axis line, .axis path {
+        fill: none;
+        stroke: #ffffff;
+        /*shape-rendering: crispEdges;*/
+    }
