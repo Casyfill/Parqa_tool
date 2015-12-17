@@ -17,6 +17,9 @@ var svg = d3.select("body")
 var info = svg.append("g")
   .attr("id", "infoblock");
 
+var mouseOverProp = {'color': '#fff',
+                      'fill-opacity':'1'}
+
 
 var Palletes = [
   ["#B7F8C7", "#91DFAE", "#70C699", "#52AD89", "#39937A", "#257A6C", "#14615E"],
@@ -73,10 +76,6 @@ d3.json("ms_districts3.json", function(error, nyb) {
     })
     .attr("d", path)
     .on("mouseover", function(d) {
-
-      d3.select(this).transition()
-        .style("opacity", 1)
-        .style("color", "rgb(122, 201, 123)");;
 
       coordinates = path.centroid(d);
       //Create the tooltip label
