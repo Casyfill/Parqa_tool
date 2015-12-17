@@ -97,8 +97,8 @@ d3.json("ms_districts3.json", function(error, nyb) {
 
       card.append("rect")
         .attr("id", 'cardBack')
-        .attr("width", 235)
-        .attr("height", 70)
+        .attr("width", 310)
+        .attr("height", 90)
 
       card.append("text")
         .attr("x", 10)
@@ -177,7 +177,7 @@ d3.json("ms_districts3.json", function(error, nyb) {
 
   function plotLegend(mode) {
     if (mode>0){
-      var name = ['PIP Scores', '311 Calls'][mode-1]
+      var name = ['PIP Scores, 2015', '311 Calls, 2015'][mode-1]
       var prop = ['PIPscore', 'calls2015'][mode - 1]
 
       var w = 110,
@@ -194,10 +194,8 @@ d3.json("ms_districts3.json", function(error, nyb) {
 
       var legend = key.append("defs").append("svg:linearGradient")
         .attr("id", "gradient")
-        .attr("x1", "100%")
-        .attr("y1", "0%")
-        .attr("x2", "100%")
-        .attr("y2", "100%")
+        .attr("x1", "100%").attr("y1", "0%")
+        .attr("x2", "100%").attr("y2", "100%")
         .attr("spreadMethod", "pad");
 
       legend.append("stop").attr("offset", "0%")
