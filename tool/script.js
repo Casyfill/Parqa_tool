@@ -233,9 +233,7 @@ d3.json("districts_t.json", function(error, nyb) {
       })
       .interpolate('basis');
 
-
-
-
+      // PLOT LINES
 
     plot.append("path")
       .attr("class", "mainline")
@@ -245,7 +243,31 @@ d3.json("districts_t.json", function(error, nyb) {
         .attr("class", "averageline")
         .attr("d", lineFunct(average));
 
+        // legend
+    var legend = card.append("g")
+    .attr("class","legend")
+    .attr("transform","translate(10,30)")
+    .style("font-size","12px")
 
+    legend.append("text")
+    .attr("x", 15)
+    .attr("y", 17)
+    .attr("class", "legendText")
+    .text(["District score", "Calls in district"][MODE-1])
+
+    legend.append("text")
+    .attr("x", 15)
+    .attr("y", 29)
+    .attr("class", "legendTexy")
+    .text(["Average score per district", "Average number of calls per district"][MODE-1])
+
+    legend.append("rect").attr("width", 12)
+      .attr("height", 8).attr("id","DistrictLegend" )
+      .attr("transform", "translate(0,10)");
+
+    legend.append("rect").attr("width", 12)
+        .attr("height", 3).attr("id","AverageLegend" )
+        .attr("transform", "translate(0,24)");
   }
 
   // ---- RADIO BUTTONS

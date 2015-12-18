@@ -129,3 +129,8 @@ text {
   stroke: #000000;
   stroke-width: .5px;
 }
+
+#DistrictLegend {
+  fill: #4ec677;
+  
+}
