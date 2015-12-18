@@ -5,7 +5,7 @@ Parqa_tool
 this is an attempt to visualise Parks attendance Database
 as some sort of analytical tool for NYC DPR PIP.
 
-![Current State](img/5.png "Current state")
+![Current State](img/7.png "Current state")
 
 *Current state snapshot*
 
