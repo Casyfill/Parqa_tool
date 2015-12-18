@@ -71,12 +71,6 @@ text {
 }
 
 
-/*#title {
-  fill: #2e2e2e;
-  font-size: 40px;
-  font-weight: 300;
-  text-anchor: left;
-}*/
 
 #tooltip {
   fill: #2e2e2e;
@@ -97,8 +91,41 @@ text {
   text-anchor: left;
 }
 
-.axis line, .axis path {
-        fill: none;
-        stroke: #ffffff;
-        /*shape-rendering: crispEdges;*/
-    }
+
+.axis path {
+      display: none;}
+
+
+.axis2 line, .axis2 path {
+            fill: none;
+            stroke: #a8a6a6;
+            stroke-width: 1px;
+            shape-rendering: crispEdges;
+        }
+
+.y.axis2 path {
+      display: none;}
+
+
+.axis2 text {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 6px;
+  pointer-events: none;
+        }
+
+.plotline {
+  fill: none;
+  stroke: #a8a6a6;
+}
+
+.mainline {
+  fill: none;
+  stroke: #4ec677;
+  stroke-width: 5px;
+}
+
+.averageline {
+  fill: none;
+  stroke: #000000;
+  stroke-width: .5px;
+}

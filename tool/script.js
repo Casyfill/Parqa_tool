@@ -6,6 +6,8 @@ var projection = d3.geo.mercator()
   .scale(50000)
   .translate([100 + (width) / 2, (height) / 2]);
 
+var x = d3.scale.linear().range([0, 260]).domain([2010, 2016]);
+var y = d3.scale.linear().range([100, 0]).domain([.5, 1.0]);
 
 var svg = d3.select("body")
   .style('color', 'black')
@@ -17,8 +19,10 @@ var svg = d3.select("body")
 var info = svg.append("g")
   .attr("id", "infoblock");
 
-var mouseOverProp = {'color': '#fff',
-                      'fill-opacity':'1'}
+var mouseOverProp = {
+  'color': '#fff',
+  'fill-opacity': '1'
+}
 
 
 var Palletes = [
@@ -26,10 +30,13 @@ var Palletes = [
   ["#DAF495", "#CAEA8C", "#BAE083", "#AAD67B", "#9BCC73", "#8DC26B", "#7FB964"]
 ];
 
+
+var districtDatum;
+
 d3.json("districts_t.json", function(error, nyb) {
   console.log('districts uploaded')
 
-  var districtDatum = topojson.feature(nyb, nyb.objects.districts).features;
+  districtDatum = topojson.feature(nyb, nyb.objects.districts).features;
 
 
   var path = d3.geo.path()
@@ -75,77 +82,169 @@ d3.json("districts_t.json", function(error, nyb) {
       return "district " + d.id;
     })
     .attr("d", path)
-    .on("mouseover", function(d){drawInfoCard(d)})
+    .on("mouseover", function(d) {
+      drawInfoCard(d)
+    })
     .on("mouseout", function() {
-      //Remove the tooltip
+      // Remove the tooltip
       d3.select("#tooltip").remove();
       d3.select("#distrCard").remove();
     });
 
 
-function drawInfoCard(d){
+  function drawInfoCard(d) {
 
-  var mHeight = [90,200,200][MODE]
-  // console.log(MODE)
-  coordinates = path.centroid(d);
-  //Create the tooltip label
-  svg.append("text")
-    .attr("id", "tooltip")
-    .attr("x", coordinates[0])
-    .attr("y", coordinates[1])
-    .attr("text-anchor", "middle")
-    .attr("font-family", "sans-serif")
-    .attr("font-size", "11px")
-    .attr("font-weight", "bold")
-    .attr("fill", "black")
-    .text(d.properties.SYSTEM);
+    var mHeight = [80, 200, 200][MODE]
+      // console.log(MODE)
+    coordinates = path.centroid(d);
+    //Create the tooltip label
+    svg.append("text")
+      .attr("id", "tooltip")
+      .attr("x", coordinates[0])
+      .attr("y", coordinates[1])
+      .attr("text-anchor", "middle")
+      .attr("font-family", "sans-serif")
+      .attr("font-size", "11px")
+      .attr("font-weight", "bold")
+      .attr("fill", "black")
+      .text(d.properties.SYSTEM);
 
-  var card = svg.select("#infoblock")
-    .append("g")
-    .attr("transform", "translate(8,120)")
-    .attr("id", 'distrCard');
+    var card = svg.select("#infoblock")
+      .append("g")
+      .attr("transform", "translate(16,120)")
+      .attr("id", 'distrCard');
 
-  card.append("rect")
-    .attr("id", 'cardBack')
-    .attr("width", 310)
-    .attr("height", mHeight)
+    card.append("rect")
+      .attr("id", 'cardBack')
+      .attr("width", 310)
+      .attr("height", mHeight)
 
-  card.append("text")
-    .attr("x", 10)
-    .attr("y", 25)
-    .attr("id", 'dID')
-    .text(d.properties.SYSTEM);
-
-  card.append("text")
-    .attr("x", 10)
-    .attr("y", 42)
-    .attr("id", "COUNCILDIS")
-    .text("Council District: " + d.properties.COUNCILDIS)
-
-  card.append("text")
-    .attr("x", 10)
-    .attr("y", 54)
-    .attr("id", "calls")
-    .text("311 complains: " + d.properties[2015])
-
-  card.append("text")
-    .attr("x", 10)
-    .attr("y", 66)
-    .attr("id", "pip")
-    .text("PIP score: " + d.properties.score2015.toFixed(2))
-
-
-    if (MODE >0){
-      graphmaker(card, d)
-    }
-}
-
-  function graphmaker(card, d){
-    // console.log(d)
     card.append("text")
       .attr("x", 10)
-      .attr("y", 110)
-      .text("2012: " + d.properties[2012].toFixed(2))
+      .attr("y", 25)
+      .attr("id", 'dID')
+      .text(d.properties.SYSTEM);
+
+    card.append("text")
+      .attr("x", 70)
+      .attr("y", 18)
+      .attr("id", "COUNCILDIS")
+      .text("Council District: " + d.properties.COUNCILDIS)
+
+
+    if (MODE > 0) {
+      graphmaker(card, d)
+    }
+  }
+
+
+
+  function graphmaker(card, d) {
+    var plot = card.append("g")
+      .attr("class", "plot")
+      .attr("transform", "translate(10,70)")
+
+    yRange = [
+      [0.5, 1.0],
+      [100, 1000]
+    ][MODE - 1];
+
+    // Y-axis
+    var y = d3.scale.linear().range([100, 0]).domain(yRange);
+    var yAxis = d3.svg.axis().scale(y).orient("right").ticks(3);
+    plot.append("g").attr("class", "y axis2 plot")
+      .attr("transform", "translate(265,8)")
+      .call(yAxis).append("text").attr("transform", "rotate(-90)")
+
+    // X-axis
+
+    var x = d3.scale.linear().range([0, 260]).domain([2010, 2016]);
+    var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(3);
+    plot.append("g").attr("class", "x axis2 plot")
+      .attr("transform", "translate(0,110)")
+      .call(xAxis);
+
+    // District plot
+
+    var prop = [
+      ['score2010', 'score2011', 'score2012',
+        'score2013', 'score2014', 'score2015'
+      ],
+      ['2010', '2011', '2012', '2013', '2014', '2015']
+    ][MODE - 1];
+
+    var dummy = [{
+      'xx': 2010,
+      'yy': .6
+    }, {
+      'xx': 2011,
+      'yy': .6
+    }, {
+      'xx': 2012,
+      'yy': .6
+    }, {
+      'xx': 2013,
+      'yy': .6
+    }, {
+      'xx': 2014,
+      'yy': .6
+    }, {
+      'xx': 2015,
+      'yy': .6
+    }];
+
+    var average = [{
+      'xx': 2010,
+      'yy': .6
+    }, {
+      'xx': 2011,
+      'yy': .6
+    }, {
+      'xx': 2012,
+      'yy': .6
+    }, {
+      'xx': 2013,
+      'yy': .6
+    }, {
+      'xx': 2014,
+      'yy': .6
+    }, {
+      'xx': 2015,
+      'yy': .6
+    }, ]
+
+    //  populate currentLine
+    for (index = 0; index < prop.length; ++index) {
+      dummy[index]['yy'] = d.properties[prop[index]];
+    };
+
+    //  populate average
+    for (index = 0; index < prop.length; ++index) {
+      average[index]['yy'] = getAverage(prop[index]);
+    };
+
+
+    var lineFunct = d3.svg.line()
+      .x(function(d) {
+        return x(d.xx)
+      })
+      .y(function(d) {
+        return y(d.yy)
+      })
+      .interpolate('basis');
+
+
+
+
+
+    plot.append("path")
+      .attr("class", "mainline")
+      .attr("d", lineFunct(dummy));
+    //
+    plot.append("path")
+        .attr("class", "averageline")
+        .attr("d", lineFunct(average));
+
 
   }
 
@@ -193,21 +292,21 @@ function drawInfoCard(d){
 
 
   function plotLegend(mode) {
-    if (mode>0){
-      var name = ['PIP Scores, 2015', '311 Calls, 2015'][mode-1]
+    if (mode > 0) {
+      var name = ['PIP Scores, 2015', '311 Calls, 2015'][mode - 1]
       var prop = ['score2015', 2015][mode - 1]
 
       var w = 110,
         h = 300;
-      var maximumColor = Palletes[mode-1][6];
-      var minimumColor = Palletes[mode-1][0];
+      var maximumColor = Palletes[mode - 1][6];
+      var minimumColor = Palletes[mode - 1][0];
       var minimum = getDataRange(prop)[0];
       var maximum = Math.max(getDataRange(prop)[1], 1);
       // console.log(maximum);
 
       svg.select('#legend').remove()
 
-      var key = svg.append('g').attr("id", "legend").attr("width", w).attr("height", h).attr("transform", "translate(20,327)");
+      var key = svg.append('g').attr("id", "legend").attr("width", w).attr("height", h).attr("transform", "translate(16,327)");
 
       var legend = key.append("defs").append("svg:linearGradient")
         .attr("id", "gradient")
@@ -229,7 +328,7 @@ function drawInfoCard(d){
 
       var y = d3.scale.linear().range([193, 0]).domain([minimum, maximum]);
       var yAxis = d3.svg.axis().scale(y).orient("right").ticks(6);
-      key.append("g").attr("class", "y axis").attr("transform", "translate(11,13)").call(yAxis).append("text").attr("transform", "rotate(-90)").attr("y", 32).attr("dy", ".62em").style("text-anchor", "end").text(name);
+      key.append("g").attr("class", "y axis").attr("transform", "translate(8,13)").call(yAxis).append("text").attr("transform", "rotate(-90)").attr("y", 32).attr("dy", ".62em").style("text-anchor", "end").text(name);
       key.selectAll("g").filter(function(d) {
         return d;
       }).classed("minor", true);
@@ -319,10 +418,10 @@ function drawInfoCard(d){
     d3.selectAll('.district')
       .each(function(d, i) {
         var currentValue = d.properties[currentAttribute];
-        n+=1;
-        sum+= currentValue;
+        n += 1;
+        sum += currentValue;
       });
-    return sum/n ; //boomsauce
+    return sum / n; //boomsauce
   }
 
   // console.log(getAverage(2015))
