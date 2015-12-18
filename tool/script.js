@@ -26,7 +26,7 @@ var Palletes = [
   ["#DAF495", "#CAEA8C", "#BAE083", "#AAD67B", "#9BCC73", "#8DC26B", "#7FB964"]
 ];
 
-d3.json("ms_districts3.json", function(error, nyb) {
+d3.json("districts_t.json", function(error, nyb) {
   console.log('districts uploaded')
 
   var districtDatum = topojson.feature(nyb, nyb.objects.districts).features;
@@ -75,56 +75,7 @@ d3.json("ms_districts3.json", function(error, nyb) {
       return "district " + d.id;
     })
     .attr("d", path)
-    .on("mouseover", function(d) {
-
-      coordinates = path.centroid(d);
-      //Create the tooltip label
-      svg.append("text")
-        .attr("id", "tooltip")
-        .attr("x", coordinates[0])
-        .attr("y", coordinates[1])
-        .attr("text-anchor", "middle")
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "11px")
-        .attr("font-weight", "bold")
-        .attr("fill", "black")
-        .text(d.properties.SYSTEM);
-
-      var card = svg.select("#infoblock")
-        .append("g")
-        .attr("transform", "translate(8,120)")
-        .attr("id", 'distrCard');
-
-      card.append("rect")
-        .attr("id", 'cardBack')
-        .attr("width", 310)
-        .attr("height", 90)
-
-      card.append("text")
-        .attr("x", 10)
-        .attr("y", 25)
-        .attr("id", 'dID')
-        .text(d.properties.SYSTEM);
-
-      card.append("text")
-        .attr("x", 10)
-        .attr("y", 42)
-        .attr("id", "COUNCILDIS")
-        .text("Council District: " + d.properties.COUNCILDIS)
-
-      card.append("text")
-        .attr("x", 10)
-        .attr("y", 54)
-        .attr("id", "calls")
-        .text("311 complains: " + d.properties.calls2015)
-
-      card.append("text")
-        .attr("x", 10)
-        .attr("y", 66)
-        .attr("id", "pip")
-        .text("PIP score: " + d.properties.PIPscore.toFixed(2))
-
-    })
+    .on("mouseover", function(d){drawInfoCard(d)})
     .on("mouseout", function() {
       //Remove the tooltip
       d3.select("#tooltip").remove();
@@ -132,9 +83,75 @@ d3.json("ms_districts3.json", function(error, nyb) {
     });
 
 
+function drawInfoCard(d){
+
+  var mHeight = [90,200,200][MODE]
+  // console.log(MODE)
+  coordinates = path.centroid(d);
+  //Create the tooltip label
+  svg.append("text")
+    .attr("id", "tooltip")
+    .attr("x", coordinates[0])
+    .attr("y", coordinates[1])
+    .attr("text-anchor", "middle")
+    .attr("font-family", "sans-serif")
+    .attr("font-size", "11px")
+    .attr("font-weight", "bold")
+    .attr("fill", "black")
+    .text(d.properties.SYSTEM);
+
+  var card = svg.select("#infoblock")
+    .append("g")
+    .attr("transform", "translate(8,120)")
+    .attr("id", 'distrCard');
+
+  card.append("rect")
+    .attr("id", 'cardBack')
+    .attr("width", 310)
+    .attr("height", mHeight)
+
+  card.append("text")
+    .attr("x", 10)
+    .attr("y", 25)
+    .attr("id", 'dID')
+    .text(d.properties.SYSTEM);
+
+  card.append("text")
+    .attr("x", 10)
+    .attr("y", 42)
+    .attr("id", "COUNCILDIS")
+    .text("Council District: " + d.properties.COUNCILDIS)
+
+  card.append("text")
+    .attr("x", 10)
+    .attr("y", 54)
+    .attr("id", "calls")
+    .text("311 complains: " + d.properties[2015])
+
+  card.append("text")
+    .attr("x", 10)
+    .attr("y", 66)
+    .attr("id", "pip")
+    .text("PIP score: " + d.properties.score2015.toFixed(2))
+
+
+    if (MODE >0){
+      graphmaker(card, d)
+    }
+}
+
+  function graphmaker(card, d){
+    // console.log(d)
+    card.append("text")
+      .attr("x", 10)
+      .attr("y", 110)
+      .text("2012: " + d.properties[2012].toFixed(2))
+
+  }
+
   // ---- RADIO BUTTONS
   var modes = ["Property", "Scores", "Complains"],
-    j = 0; // Choose the rectangle as default
+    MODE = 0; // Choose the rectangle as default
 
   //
   var form = d3.select("body")
@@ -166,7 +183,7 @@ d3.json("ms_districts3.json", function(error, nyb) {
       }
     })
     .property("checked", function(d, i) {
-      return (i === j);
+      return (i === MODE);
     });
 
   labelEnter.append('label').text(function(d) {
@@ -178,7 +195,7 @@ d3.json("ms_districts3.json", function(error, nyb) {
   function plotLegend(mode) {
     if (mode>0){
       var name = ['PIP Scores, 2015', '311 Calls, 2015'][mode-1]
-      var prop = ['PIPscore', 'calls2015'][mode - 1]
+      var prop = ['score2015', 2015][mode - 1]
 
       var w = 110,
         h = 300;
@@ -186,7 +203,7 @@ d3.json("ms_districts3.json", function(error, nyb) {
       var minimumColor = Palletes[mode-1][0];
       var minimum = getDataRange(prop)[0];
       var maximum = Math.max(getDataRange(prop)[1], 1);
-      console.log(maximum);
+      // console.log(maximum);
 
       svg.select('#legend').remove()
 
@@ -227,6 +244,7 @@ d3.json("ms_districts3.json", function(error, nyb) {
   function change() {
     //  change viz mode
     mode = this.value;
+    MODE = mode;
     // console.log(mode);
     choropleth(mode);
     plotLegend(mode)
@@ -243,7 +261,7 @@ d3.json("ms_districts3.json", function(error, nyb) {
       if (mode == 0) {
         return "red"
       } else {
-        var prop = ['PIPscore', 'calls2015'][mode - 1]
+        var prop = ['score2015', 2015][mode - 1]
 
 
         var quantizer = d3.scale.quantize()
@@ -294,7 +312,19 @@ d3.json("ms_districts3.json", function(error, nyb) {
     return [min, max]; //boomsauce
   }
 
-  // console.log(getDataRange('calls2015'));
+  function getAverage(currentAttribute) {
+    var n = 0,
+      sum = 0;
 
+    d3.selectAll('.district')
+      .each(function(d, i) {
+        var currentValue = d.properties[currentAttribute];
+        n+=1;
+        sum+= currentValue;
+      });
+    return sum/n ; //boomsauce
+  }
+
+  // console.log(getAverage(2015))
 
 })
