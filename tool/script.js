@@ -42,21 +42,20 @@ d3.json("districts_t.json", function(error, nyb) {
   var path = d3.geo.path()
     .projection(projection);
 
-  var g = svg.append("g");
+  var g = svg.append("g")
+             .attr('id','parks');
+
   console.log('parks uploaded')
-  d3.json("parks3.json", function(error, prks) {
+  d3.json("parks_t.json", function(error, prks) {
 
     var path = d3.geo.path()
       .projection(projection);
 
     var ps = g.append("g")
       .selectAll(".parkP")
-      .data(topojson.feature(prks, prks.objects.parks_computed).features)
+      .data(topojson.feature(prks, prks.objects.parks).features)
       .enter().append("path")
       .attr("class", "park")
-      .attr("id", function(d) {
-        return "park_ " + d.GISPROPNUM;
-      })
       .attr("d", path);
 
   })
@@ -129,7 +128,7 @@ d3.json("districts_t.json", function(error, nyb) {
       .attr("x", 70)
       .attr("y", 18)
       .attr("id", "COUNCILDIS")
-      .text("Council District: " + d.properties.COUNCILDIS)
+      .text("Council districts: " + d.properties.COUNCILDIS)
 
 
     if (MODE > 0) {
@@ -253,13 +252,13 @@ d3.json("districts_t.json", function(error, nyb) {
     .attr("x", 15)
     .attr("y", 17)
     .attr("class", "legendText")
-    .text(["District score", "Calls in district"][MODE-1])
+    .text(["District score", "Calls per district"][MODE-1])
 
     legend.append("text")
     .attr("x", 15)
     .attr("y", 29)
     .attr("class", "legendTexy")
-    .text(["Average score per district", "Average number of calls per district"][MODE-1])
+    .text(["Average districts score", "Average number of calls per district"][MODE-1])
 
     legend.append("rect").attr("width", 12)
       .attr("height", 8).attr("id","DistrictLegend" )
@@ -279,7 +278,7 @@ d3.json("districts_t.json", function(error, nyb) {
     .append("div")
     .append("h1")
     .attr('id', 'title')
-    .text("NYC Park Quality");
+    .text("NYC Parks Quality");
 
 
   // Create the shape selectors
