@@ -28,4 +28,6 @@ All data is copied in [data](folder)
 - [mapbox mapGL](https://github.com/mapbox/mapbox-gl-js)
 - [cartodb.js](http://docs.cartodb.com/cartodb-platform/cartodb-js.html)
 
-## Maintainer: pbk236@nyu.edu
+##Maintainer
+
+[pbk236@nyu.edu](pbk236@nyu.edu)
